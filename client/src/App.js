@@ -1,29 +1,19 @@
-import React from 'react';
 import './App.css';
-import Header from './components/Header';
-import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
+import Layout from './Layout';
+import { BrowserRouter, Route, Routes, Switch } from 'react-router-dom';
+import BlogPage from './pages/BlogPage';
+import IndexPage from './pages/IndexPage';
+import PostPage from './pages/PostPage';
 
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    console.log(data)
-    fetch("/api")
-    .then((res) => res.json())
-    .then((data) => setData(data.message));
-  }, []);
-
-
   return (
-    <div>
-      <Header />
-      <Home />
-      <About />
-      {/* <Contact /> */}
-    
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+      <Route index element={<IndexPage />} />
+      <Route path="/blog" element={<BlogPage />} />
+      <Route path="/post/:id" element={<PostPage />} />
+      </Route>
+    </Routes>
   );
 }
 
